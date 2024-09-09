@@ -9,16 +9,17 @@ const Home = () => {
     "Function calling": "function-calling",
     "File search": "file-search",
     All: "all",
+    "Real Hotels Group Benchmark": "real-hotels-group"
   };
 
   return (
     <main className={styles.main}>
       <div className={styles.title}>
-        Explore sample apps built with Assistants API
+        Projetos disponíveis
       </div>
       <div className={styles.container}>
         {Object.entries(categories).map(([name, url]) => (
-          <a key={name} className={styles.category} href={`/examples/${url}`}>
+          <a key={name} className={styles.category} href={`/projetos/${url}`}>
             {name}
           </a>
         ))}

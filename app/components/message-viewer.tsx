@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styles from "./file-viewer.module.css";
+import { useGlobalContext } from "../contexts/GlobalContext";
 
 const TrashIcon = () => (
   <svg
@@ -19,7 +20,8 @@ const TrashIcon = () => (
 );
 
 const MessageViewer = () => {
-  const [files, setFiles] = useState([]);
+  const [messages, setMessages] = useState([]);
+  const {state} = useGlobalContext();
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -34,12 +36,12 @@ const MessageViewer = () => {
       method: "GET",
     });
     const data = await resp?.json();
-    setFiles(data?.data);
+    setMessages(data?.data);
   };
 
 
   const handleFileDelete = async (fileId) => {
-    await fetch("/api/assistants/files", {
+    await fetch("/api/assistants/messages", {
       method: "DELETE",
       body: JSON.stringify({ fileId }),
     });
@@ -59,13 +61,15 @@ const MessageViewer = () => {
     <div className={styles.fileViewer}>
       <div
         className={`${styles.filesList} ${
-          files.length !== 0 ? styles.grow : ""
+          messages?.length !== 0 ? styles.grow : ""
         }`}
       >
-        {files.length === 0 ? (
+        { messages?.length === 0 ? (
           <div className={styles.title}>Attach files to test file search</div>
         ) : (
-          files?.map((file) => (
+          messages?.map((file) => 
+            {         
+              return (
             <div key={file.file_id} className={styles.fileEntry}>
               <div className={styles.fileName}>
                 <span className={styles.fileName}>{file.content[0]?.text?.value}</span>
@@ -75,7 +79,7 @@ const MessageViewer = () => {
                 <TrashIcon />
               </span>
             </div>
-          ))
+          )})
         )}
       </div>
       <div className={styles.fileUploadContainer}>

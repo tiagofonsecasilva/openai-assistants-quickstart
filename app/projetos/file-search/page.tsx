@@ -6,9 +6,11 @@ import Chat from "../../components/chat";
 import FileViewer from "../../components/file-viewer";
 import { Messages } from "openai/resources/beta/threads/messages";
 import MessageViewer from "@/app/components/message-viewer";
+import RealHotelsLayout from "@/app/layouts/RealHotelsLayout";
 
 const FileSearchPage = () => {
   return (
+    <RealHotelsLayout>
     <main className={styles.main}>
       <div className={styles.container}>
         <div className={styles.column}>
@@ -22,6 +24,8 @@ const FileSearchPage = () => {
         </div>
       </div>
     </main>
+    </RealHotelsLayout>
+
   );
 };
 

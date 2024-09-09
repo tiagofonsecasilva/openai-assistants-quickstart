@@ -1,5 +1,6 @@
 import { assistantId } from "@/app/assistant-config";
 import { openai } from "@/app/openai";
+import {threadId} from "../../../assistant-config"
 
 // upload file to assistant's vector store
 // export async function POST(request) {
@@ -24,7 +25,7 @@ import { openai } from "@/app/openai";
 export async function GET() {
 
   const threadMessages = await openai.beta.threads.messages.list(
-    process.env.THREAD_ID
+    threadId
   );
 
   return Response.json(threadMessages);

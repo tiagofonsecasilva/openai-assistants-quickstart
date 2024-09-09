@@ -7,6 +7,7 @@ import Markdown from "react-markdown";
 // @ts-expect-error - no types for this yet
 import { AssistantStreamEvent } from "openai/resources/beta/assistants/assistants";
 import { RequiredActionFunctionToolCall } from "openai/resources/beta/threads/runs/runs";
+import { useGlobalContext } from "../contexts/GlobalContext";
 
 type MessageProps = {
   role: "user" | "assistant" | "code";
@@ -38,6 +39,8 @@ const CodeMessage = ({ text }: { text: string }) => {
   );
 };
 
+const threadId = "thread_dSkEF2gsm6sDkObDZ7earHxJ"
+
 const Message = ({ role, text }: MessageProps) => {
   switch (role) {
     case "user":
@@ -63,13 +66,13 @@ const Chat = ({
   const [userInput, setUserInput] = useState("");
   const [messages, setMessages] = useState([]);
   const [inputDisabled, setInputDisabled] = useState(false);
-  const [threadId, setThreadId] = useState("");
-
+  const [, setThreadId] = useState("");
   // automatically scroll to bottom of chat
   const messagesEndRef = useRef<HTMLDivElement | null>(null);
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
+
   useEffect(() => {
     scrollToBottom();
   }, [messages]);

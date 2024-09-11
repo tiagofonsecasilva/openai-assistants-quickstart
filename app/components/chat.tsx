@@ -73,6 +73,15 @@ const Chat = ({
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
+  // useEffect(() => {
+  //   const fetchMessages = async () => {
+  //     const response = await fetch(`/api/assistants/messages`);
+  //     const data = await response.json();
+  //     setMessages(data?.data);
+  //   };
+  //   fetchMessages();
+  // }, []);
+
   useEffect(() => {
     scrollToBottom();
   }, [messages]);
@@ -254,8 +263,8 @@ const Chat = ({
   return (
     <div className={styles.chatContainer}>
       <div className={styles.messages}>
-        {messages.map((msg, index) => (
-          <Message key={index} role={msg.role} text={msg.text} />
+        {messages?.map((msg, index) => (
+          <Message key={index} role={msg.role} text={msg?.content[0]?.text?.value} />
         ))}
         <div ref={messagesEndRef} />
       </div>

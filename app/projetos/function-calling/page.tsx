@@ -108,11 +108,13 @@ const FunctionCalling = () => {
               /> */}
               <div className={ChatStyles.messages}>
                 {messages?.map((msg, index) => (
-                  <Message
-                    key={index}
-                    role={msg.role}
-                    text={msg?.content[0]?.text?.value}
-                  />
+                  msg?.content.map((content) => (
+                    <Message
+                      key={index}
+                      role={msg.role}
+                      text={content.text.value}
+                    />
+                  ))
                 ))}
                 <div ref={messagesEndRef} />
               </div>

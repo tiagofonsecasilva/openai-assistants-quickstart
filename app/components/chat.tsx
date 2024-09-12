@@ -87,16 +87,16 @@ const Chat = ({
   }, [messages]);
 
   // create a new threadID when chat component created
-  useEffect(() => {
-    const createThread = async () => {
-      const res = await fetch(`/api/assistants/threads`, {
-        method: "POST",
-      });
-      const data = await res.json();
-      setThreadId(data.threadId);
-    };
-    createThread();
-  }, []);
+  // useEffect(() => {
+  //   const createThread = async () => {
+  //     const res = await fetch(`/api/assistants/threads`, {
+  //       method: "POST",
+  //     });
+  //     const data = await res.json();
+  //     setThreadId(data.threadId);
+  //   };
+  //   createThread();
+  // }, []);
 
   const sendMessage = async (text) => {
     const response = await fetch(
@@ -105,6 +105,7 @@ const Chat = ({
         method: "POST",
         body: JSON.stringify({
           content: text,
+          role: "assistant",
         }),
       }
     );
@@ -136,7 +137,7 @@ const Chat = ({
     sendMessage(userInput);
     setMessages((prevMessages) => [
       ...prevMessages,
-      { role: "user", text: userInput },
+      { role: "assistant", text: userInput },
     ]);
     setUserInput("");
     setInputDisabled(true);
@@ -264,7 +265,7 @@ const Chat = ({
     <div className={styles.chatContainer}>
       <div className={styles.messages}>
         {messages?.map((msg, index) => (
-          <Message key={index} role={msg.role} text={msg?.content[0]?.text?.value} />
+          <Message key={index} role={msg.role} text={msg?.text} />
         ))}
         <div ref={messagesEndRef} />
       </div>

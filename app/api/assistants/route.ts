@@ -36,3 +36,9 @@ export async function POST() {
   });
   return Response.json({ assistantId: assistant.id });
 }
+
+// List all assistants
+export async function GET() {
+  const assistants = await openai.beta.assistants.list();
+  return Response.json(assistants);
+}

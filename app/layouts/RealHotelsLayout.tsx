@@ -17,7 +17,7 @@ const RealHotelsLayout: React.FC<{ children: React.ReactNode }> = ({ children })
 
   return (
     <div>
-      <h1>Real Hotels Group Benchmark</h1>
+      <h1>Real Hotels Group Benchmark2</h1>
       {children}
     </div>
   );

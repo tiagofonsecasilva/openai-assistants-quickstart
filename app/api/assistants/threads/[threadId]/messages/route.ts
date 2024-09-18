@@ -1,5 +1,6 @@
 import { assistantId } from "@/app/assistant-config";
 import { openai } from "@/app/openai";
+import { NextResponse } from "next/server";
 
 export const runtime = "nodejs";
 
@@ -17,4 +18,16 @@ export async function POST(request, { params: { threadId } }) {
   });
 
   return new Response(stream.toReadableStream());
+}
+
+export async function GET(request, {params} ) {
+  const { threadId } = params;
+    
+  if (!threadId) {
+    return NextResponse.json(threadId);
+  }
+
+  const threadMessages = await openai.beta.threads.messages.list(threadId);
+
+  return NextResponse.json(threadMessages);
 }

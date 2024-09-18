@@ -20,9 +20,9 @@ const TrashIcon = () => (
 );
 
 const MessageViewer = () => {
-  const [messages, setMessages] = useState([]);
-  const {state} = useGlobalContext();
-
+  const [messages2, setMessages] = useState([]);
+  const {state, messages} = useGlobalContext();
+console.log(messages, "messages")
   useEffect(() => {
     const interval = setInterval(() => {
       fetchFiles();

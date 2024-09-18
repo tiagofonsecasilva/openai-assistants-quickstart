@@ -1,19 +1,39 @@
 "use client";
 
-import React from "react";
+import React, { use, useEffect } from "react";
 import styles from "./page.module.css";
+import SelectLabels from "./components/material/select/SelectLabels";
 
 const Home = () => {
   const categories = {
-    "Basic chat": "basic-chat",
-    "Function calling": "function-calling",
+    "CORE ": "basic-chat",
+    "Faculdade": "function-calling",
     "File search": "file-search",
     All: "all",
     "Real Hotels Group Benchmark": "real-hotels-group"
   };
 
+  const [loading, setLoading] = React.useState(false);
+  const [assistantsList, setAssistantsList] = React.useState("");
+
+  const fetchAssistantId = async () => {
+    setLoading(true);
+
+    const response = await fetch("/api/assistants", { method: "Get" });
+    const data = await response.json();
+    setAssistantsList(data.data);
+
+    setLoading(false);
+  };
+
+
+  useEffect(() => {
+    fetchAssistantId();
+  }, []);
+
   return (
     <main className={styles.main}>
+      <SelectLabels data={assistantsList} />
       <div className={styles.title}>
         Projetos disponíveis
       </div>
